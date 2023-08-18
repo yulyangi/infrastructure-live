@@ -1,5 +1,5 @@
 terraform {
-  source = "../../../infrastructure-modules/vpc"
+  source = "git@github.com:yulyangi-personal/infrastructure-modules.git//vpc?ref=vpc-v0.0.1"
 }
 
 include "root" {
