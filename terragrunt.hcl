@@ -1,12 +1,12 @@
 remote_state {
-  backend = "s3"
+  backend = "local"
   generate = {
-    path      = "state.tf"
-    if_exists = "overwrite_terrugrunt"
+    path      = "s3"
+    if_exists = "overwrite_terragrunt"
   }
 
   config = {
-    profile  = "yulyan"
+    path     = "${path_relative_to_include()}/terraform.tfstate"
     role_arn = "arn:aws:iam::468617488226:role/yulyan-apply"
     bucket   = "yulyanglonti-terraform-state"
 
@@ -18,13 +18,12 @@ remote_state {
 }
 
 generate "provider" {
-  path = "provider.tf"
+  path      = "provider.tf"
   if_exists = "overwrite_terragrunt"
 
   contents = <<EOF
 provider "aws" {
   region  = "us-east-1"
-  profile = "yulyan"
 
   assume_role {
     session_name = "session-yulyan"
